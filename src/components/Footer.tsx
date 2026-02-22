@@ -18,7 +18,7 @@ const Footer = () => {
               </div>
             </div>
             <p className="text-gray-300 mb-6 max-w-md">
-              Your trusted technology partner in Ahmedabad. From quick repairs to enterprise IT solutions, 
+              Your trusted technology partner in Ahmedabad. From quick repairs to enterprise IT solutions,
               we deliver reliable, secure, and innovative technology support.
             </p>
             <div className="space-y-3">
@@ -30,7 +30,7 @@ const Footer = () => {
                   <p className="text-xs text-gray-400">Primary Contact</p>
                 </div>
               </div>
-              
+
               {/* Secondary Contact */}
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-green-400" />
@@ -39,7 +39,7 @@ const Footer = () => {
                   <p className="text-xs text-gray-400">Secondary Contact</p>
                 </div>
               </div>
-              
+
               {/* Additional Contact */}
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 text-purple-400" />
@@ -48,7 +48,7 @@ const Footer = () => {
                   <p className="text-xs text-gray-400">Additional Contact</p>
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 text-blue-400" />
                 <span>officialtechnofixer@gmail.com</span>
@@ -82,12 +82,12 @@ const Footer = () => {
               <li><a href="#services" className="hover:text-blue-400 transition-colors">Services</a></li>
               <li><a href="#contact" className="hover:text-blue-400 transition-colors">Contact</a></li>
             </ul>
-            
+
             <div className="mt-6">
               <h5 className="font-semibold mb-3">Follow Us</h5>
               <div className="flex space-x-3">
-                <a 
-                  href="https://www.linkedin.com/company/techno-fixer/" 
+                <a
+                  href="https://www.linkedin.com/company/techno-fixer/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gray-800 hover:bg-blue-600 p-2 rounded-lg transition-colors"
@@ -95,8 +95,8 @@ const Footer = () => {
                 >
                   <Linkedin className="h-5 w-5" />
                 </a>
-                <a 
-                  href="https://www.instagram.com/techno.fixer/" 
+                <a
+                  href="https://www.instagram.com/techno.fixer/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gray-800 hover:bg-pink-600 p-2 rounded-lg transition-colors"
@@ -104,8 +104,8 @@ const Footer = () => {
                 >
                   <Instagram className="h-5 w-5" />
                 </a>
-                <a 
-                  href="https://www.facebook.com/share/1772gXYzaV/" 
+                <a
+                  href="https://www.facebook.com/share/1772gXYzaV/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="bg-gray-800 hover:bg-blue-700 p-2 rounded-lg transition-colors"
@@ -129,18 +129,18 @@ const Footer = () => {
               <a href="#" className="text-gray-400 hover:text-blue-400 text-sm transition-colors">Support</a>
             </div>
           </div>
-          
-          {/* Made by Yash_Vania */}
+
+          {/* Made by Techno Fixer */}
           <div className="text-center mt-6 pt-6 border-t border-gray-800">
             <p className="text-gray-500 text-sm">
               Made by{' '}
-              <a 
-                href="https://www.linkedin.com/in/yash-vania-a66575203" 
-                target="_blank" 
+              <a
+                href="https://www.linkedin.com/in/techno-fixer-20565b3b2/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-400 hover:text-blue-300 font-medium transition-colors hover:underline"
               >
-                Yash_Vania
+                Techno Fixer
               </a>
             </p>
           </div>
