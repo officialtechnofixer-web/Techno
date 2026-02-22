@@ -3,7 +3,7 @@ import { Target, Eye, Award, MapPin } from 'lucide-react';
 
 const About = () => {
   return (
-    <section id="about" className="py-20 bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-black transition-colors duration-300">
+    <section id="about" className="py-12 md:py-20 bg-gradient-to-br from-cyan-50 via-blue-50 to-indigo-50 dark:from-gray-900 dark:via-slate-900 dark:to-black transition-colors duration-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16 slide-in-top">
           <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">About Techno Fixer</h2>

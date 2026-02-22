@@ -39,7 +39,7 @@ const Header = () => {
               <img
                 src="/TF.png"
                 alt="Techno Fixer Logo"
-                className="h-20 w-20 p-1 object-contain transition-all duration-300 
+                className="h-12 w-12 md:h-20 md:w-20 p-1 object-contain transition-all duration-300 
                          transform group-hover:scale-110 group-hover:rotate-3 
                          drop-shadow-2xl hover:drop-shadow-2xl"
                 style={{
@@ -149,45 +149,52 @@ const Header = () => {
         </div>
 
         {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-gray-200 mt-2">
-            <nav className="flex flex-col space-y-4">
+        <div
+          className={`md:hidden absolute top-full left-0 w-full bg-white/98 dark:bg-gray-900/98 backdrop-blur-3xl shadow-2xl border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300 ease-in-out origin-top ${isMenuOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
+            }`}
+          style={{ maxHeight: 'calc(100vh - 80px)', overflowY: 'auto' }}
+        >
+          <div className="p-6 pb-8">
+            <nav className="flex flex-col space-y-5">
               <Link
                 to="/"
-                className="text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 text-base"
+                className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg flex items-center p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
               <Link
                 to="/shop"
-                className="text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 text-base"
+                className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg flex items-center p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Shop
               </Link>
               <button
                 onClick={() => handleNavClick('about')}
-                className="text-left text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 text-base"
+                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 About
               </button>
               <button
                 onClick={() => handleNavClick('services')}
-                className="text-left text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 text-base"
+                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 Services
               </button>
               <button
                 onClick={() => handleNavClick('contact')}
-                className="text-left text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 text-base"
+                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
               >
                 Contact
               </button>
-              <div className="pt-2">
+
+              <div className="h-px bg-gray-200 dark:bg-gray-800 w-full my-4"></div>
+
+              <div className="pt-2 flex flex-col space-y-4">
                 <Link
                   to="/auth/login"
-                  className="block text-center text-gray-700 hover:text-blue-600 font-medium transition-all duration-300 text-base py-2.5 border border-gray-300 rounded-md hover:bg-gray-50 flex items-center justify-center"
+                  className="w-full text-center text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg py-3 border-2 border-gray-300 dark:border-gray-700 rounded-xl hover:bg-gray-50 dark:hover:bg-gray-800 flex items-center justify-center"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -195,28 +202,28 @@ const Header = () => {
                   </svg>
                   Login
                 </Link>
-                <p className="text-center text-sm text-gray-500 my-2">or</p>
                 <Link
                   to="/auth/signup"
-                  className="block text-center text-white bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-2.5 rounded-full font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-base"
+                  className="w-full text-center text-white bg-gradient-to-r from-blue-500 to-indigo-600 px-6 py-3 rounded-xl font-bold hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-lg"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Create Account
                 </Link>
               </div>
+
               <a
                 href="tel:+919265627252"
-                className="bg-gradient-to-r from-blue-500 to-indigo-500 text-white px-6 py-2.5 rounded-full font-medium hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center space-x-2 w-full mt-2 text-base"
+                className="mt-6 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-4 rounded-xl font-bold shadow-lg hover:shadow-xl hover:-translate-y-0.5 transition-all duration-300 flex items-center justify-center space-x-2 w-full text-lg"
                 onClick={() => setIsMenuOpen(false)}
               >
-                <span>Call Now</span>
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <span>Call Now (+91 9265627252)</span>
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                 </svg>
               </a>
             </nav>
           </div>
-        )}
+        </div>
       </div>
     </header>
   );
