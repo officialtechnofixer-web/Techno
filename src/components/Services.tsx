@@ -51,15 +51,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
     support: "24/7 available"
   }
 }) => {
-  const cardClasses = `bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg transition-all duration-500 cursor-pointer relative overflow-hidden ${isExpanded
-    ? 'transform scale-105 z-10 shadow-xl'
-    : 'hover:-translate-y-3 hover:shadow-2xl group'
+  const cardClasses = `bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-lg transition-all duration-500 cursor-pointer relative overflow-hidden ring-1 ring-gray-200 dark:ring-gray-700 ${isExpanded
+    ? 'transform scale-[1.02] z-10 shadow-2xl ring-blue-500/50'
+    : 'hover:-translate-y-2 hover:shadow-2xl group hover:ring-blue-500/30'
     }`;
 
-  const overlayClasses = `absolute inset-0 transition-all duration-500 ${isExpanded ? 'bg-white dark:bg-gray-800' : 'bg-white dark:bg-gray-800 group-hover:bg-gray-50 dark:group-hover:bg-gray-700'
-    }`;
-
-  const titleClasses = `text-xl font-bold mb-4 transition-colors duration-500 ${isExpanded ? 'text-gray-900 dark:text-white text-2xl' : 'text-gray-900 dark:text-white group-hover:text-gray-800'
+  const titleClasses = `text-xl font-bold mb-4 transition-all duration-500 ${isExpanded ? 'text-gray-900 dark:text-white text-2xl tracking-tight' : 'text-gray-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400'
     }`;
 
   return (
@@ -67,15 +64,12 @@ const ServiceCard: React.FC<ServiceCardProps> = ({
       className={cardClasses}
       onClick={onClick}
     >
-      <div className={overlayClasses}></div>
-
-      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
-
+      <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-indigo-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
       <div className="relative z-10">
         <div className="flex items-start justify-between">
-          <div className={`${color} w-16 h-16 rounded-xl flex items-center justify-center mb-6 transition-all duration-500 ${isExpanded ? 'scale-110 rotate-3 shadow-lg' : 'group-hover:scale-110 group-hover:rotate-3 group-hover:shadow-lg'
+          <div className={`${color} w-16 h-16 rounded-2xl flex items-center justify-center mb-6 transition-all duration-500 ${isExpanded ? 'scale-110 shadow-lg ring-4 ring-white dark:ring-gray-700' : 'group-hover:scale-110 group-hover:shadow-xl'
             }`}>
-            <div className={isExpanded ? 'scale-110' : 'group-hover:scale-110 transition-transform duration-300'}>
+            <div className={`transition-transform duration-500 ${isExpanded ? 'scale-110' : 'group-hover:scale-110'}`}>
               {icon}
             </div>
           </div>

@@ -1,12 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useLocation, useNavigate, Link } from 'react-router-dom';
-import { useAuth } from '../contexts/AuthContext';
 import ThemeToggle from './ThemeToggle';
 
-
-// Direct path to the logo in the public directory
-const logoPath = '/TF.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -99,7 +95,7 @@ const Header = () => {
                   <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                 </svg>
               </button>
-              <div className="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-1 group-hover:translate-y-0">
+              <div className="absolute right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-md shadow-2xl py-1 z-[100] opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 transform translate-y-1 group-hover:translate-y-0 border border-gray-100 dark:border-gray-700">
                 <Link
                   to="/auth/login"
                   className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200 flex items-center"
@@ -150,7 +146,7 @@ const Header = () => {
 
         {/* Mobile Navigation */}
         <div
-          className={`md:hidden absolute top-full left-0 w-full bg-white/98 dark:bg-gray-900/98 backdrop-blur-3xl shadow-2xl border-b border-gray-200/50 dark:border-gray-800/50 transition-all duration-300 ease-in-out origin-top ${isMenuOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
+          className={`md:hidden absolute top-full left-0 w-full bg-white dark:bg-gray-900 shadow-2xl border-b border-gray-200 dark:border-gray-800 transition-all duration-300 ease-in-out origin-top z-[100] ${isMenuOpen ? 'opacity-100 scale-y-100' : 'opacity-0 scale-y-0 pointer-events-none'
             }`}
           style={{ maxHeight: 'calc(100vh - 80px)', overflowY: 'auto' }}
         >
@@ -158,33 +154,33 @@ const Header = () => {
             <nav className="flex flex-col space-y-5">
               <Link
                 to="/"
-                className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg flex items-center p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg flex items-center p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/80"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Home
               </Link>
               <Link
                 to="/shop"
-                className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg flex items-center p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg flex items-center p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/80"
                 onClick={() => setIsMenuOpen(false)}
               >
                 Shop
               </Link>
               <button
                 onClick={() => handleNavClick('about')}
-                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/80"
               >
                 About
               </button>
               <button
                 onClick={() => handleNavClick('services')}
-                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/80"
               >
                 Services
               </button>
               <button
                 onClick={() => handleNavClick('contact')}
-                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-2 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800"
+                className="text-left text-gray-800 dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-400 font-semibold transition-all duration-300 text-lg p-3 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800/80"
               >
                 Contact
               </button>

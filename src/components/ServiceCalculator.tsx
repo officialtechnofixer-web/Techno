@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+// @ts-ignore
+import html2pdf from 'html2pdf.js';
 import { useLocation } from 'react-router-dom';
 import {
   Mail, Zap, TrendingUp, Star, CheckCircle, Wifi, WifiOff,
@@ -1056,153 +1058,119 @@ const ServiceCalculator = () => {
       }, 0)
     };
 
-    // Create PDF content with Techno Fixer branding
-    const pdfContent = `
-  < !DOCTYPE html >
-    <html>
-      <head>
-        <title>Techno Fixer - Professional Quote</title>
-        <style>
-          body {font - family: Arial, sans-serif; margin: 0; padding: 20px; }
-          .header {background: linear-gradient(135deg, #3b82f6, #1d4ed8); color: white; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-          .logo {font - size: 24px; font-weight: bold; margin-bottom: 5px; }
-          .company-info {font - size: 14px; opacity: 0.9; }
-          .quote-details {background: #f8fafc; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-          .client-info {background: #f1f5f9; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-          .services-table {width: 100%; border-collapse: collapse; margin-bottom: 20px; }
-          .services-table th, .services-table td {border: 1px solid #e2e8f0; padding: 12px; text-align: left; }
-          .services-table th {background: #3b82f6; color: white; }
-          .total-section {background: #dbeafe; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-          .total-amount {font - size: 24px; font-weight: bold; color: #1d4ed8; }
-          .terms {background: #fef3c7; padding: 20px; border-radius: 10px; margin-bottom: 20px; }
-          .contact-info {background: #ecfdf5; padding: 20px; border-radius: 10px; }
-          .contact-item {margin: 5px 0; }
-        </style>
-      </head>
-      <body>
-        <div class="header">
-          <div class="logo">🔧 Techno Fixer</div>
-          <div class="company-info">IT Solutions & Repair Services</div>
+    // Create container for PDF content
+    const element = document.createElement('div');
+    element.innerHTML = `
+      <div style="font-family: 'Segoe UI', Arial, sans-serif; padding: 40px; color: #1e293b; background: white; max-width: 800px; margin: 0 auto;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #3b82f6; padding-bottom: 20px;">
+          <div>
+            <h1 style="font-size: 32px; font-weight: 800; color: #1d4ed8; margin: 0;">TECHNO FIXER</h1>
+            <p style="font-size: 14px; font-weight: 600; color: #64748b; margin: 5px 0 0 0;">IT Solutions & Repair Services</p>
+          </div>
+          <div style="text-align: right;">
+            <p style="font-size: 14px; font-weight: 600; color: #1e293b; margin: 0;">Quote #: ${quoteData.quoteNumber}</p>
+            <p style="font-size: 14px; color: #64748b; margin: 5px 0 0 0;">Date: ${quoteData.date}</p>
+          </div>
         </div>
 
-        <div class="quote-details">
-          <h2>Professional Quote</h2>
-          <p><strong>Quote Number:</strong> ${quoteData.quoteNumber}</p>
-          <p><strong>Date:</strong> ${quoteData.date}</p>
-          <p><strong>Valid Until:</strong> ${new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toLocaleDateString()}</p>
-          <p><strong>Urgency Level:</strong> ${urgency}</p>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+          <div>
+            <h3 style="font-size: 16px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">Client Information</h3>
+            <p style="font-size: 15px; margin: 0 0 5px 0;"><strong>${clientInfo.name || 'Valued Client'}</strong></p>
+            <p style="font-size: 14px; color: #475569; margin: 0 0 3px 0;">${clientInfo.email || '-'}</p>
+            <p style="font-size: 14px; color: #475569; margin: 0 0 3px 0;">${clientInfo.phone || '-'}</p>
+            <p style="font-size: 14px; color: #475569; margin: 0;">${clientInfo.address || '-'}</p>
+          </div>
+          <div style="text-align: right;">
+            <h3 style="font-size: 16px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 12px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">Payment Summary</h3>
+            <div style="display: flex; justify-content: flex-end; gap: 15px; margin-bottom: 8px;">
+               <span style="font-size: 14px; color: #64748b;">Subtotal:</span>
+               <span style="font-size: 14px; font-weight: 600; width: 80px;">₹${quoteData.subtotal.toLocaleString()}</span>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 15px; margin-bottom: 8px;">
+               <span style="font-size: 14px; color: #64748b;">Urgency Factor:</span>
+               <span style="font-size: 14px; font-weight: 600; width: 80px;">${urgencyMultipliers[urgency]}x</span>
+            </div>
+            <div style="display: flex; justify-content: flex-end; gap: 15px; margin-top: 15px; padding-top: 15px; border-top: 2px solid #3b82f6;">
+               <span style="font-size: 18px; font-weight: 800; color: #1e293b;">TOTAL:</span>
+               <span style="font-size: 18px; font-weight: 800; color: #1d4ed8; width: 100px;">₹${quoteData.total.toLocaleString()}</span>
+            </div>
+          </div>
         </div>
 
-        <div class="client-info">
-          <h3>Client Information</h3>
-          <p><strong>Name:</strong> ${clientInfo.name || 'Not provided'}</p>
-          <p><strong>Email:</strong> ${clientInfo.email || 'Not provided'}</p>
-          <p><strong>Phone:</strong> ${clientInfo.phone || 'Not provided'}</p>
-          <p><strong>Address:</strong> ${clientInfo.address || 'Not provided'}</p>
-        </div>
-
-        <h3>Detailed Services Breakdown</h3>
+        <h3 style="font-size: 16px; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px;">Services Detailed Breakdown</h3>
+        
         ${selectedServices.map(serviceId => {
       const service = serviceOptions.find(s => s.id === serviceId);
-      const adjusted = adjustTimeString(service?.estimatedTime, urgencyTimeFactors[urgency]);
       const detailedServiceList = detailedServices[serviceId] || [];
-
-      const serviceTotal = (selectedSubServices[serviceId] || []).reduce((total, subServiceId) => {
+      const selectedSubServiceIds = selectedSubServices[serviceId] || [];
+      const serviceTotal = selectedSubServiceIds.reduce((total, subServiceId) => {
         const subService = detailedServiceList.find((s: { id: string; }) => s.id === subServiceId);
         return total + (subService?.price || 0);
       }, 0);
 
-      let serviceHtml = `
-            <div style="margin-bottom: 30px; border: 1px solid #e2e8f0; border-radius: 10px; padding: 20px;">
-              <h4 style="color: #1d4ed8; margin-bottom: 10px; font-size: 18px;">${service?.name}</h4>
-              <p style="color: #64748b; margin-bottom: 15px;">${service?.description}</p>
-              <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
-                <span style="color: #64748b;">Time: ${adjusted}</span>
-                <span style="font-weight: bold; color: #1d4ed8;">₹${serviceTotal.toLocaleString()}</span>
+      return `
+            <div style="margin-bottom: 25px; padding: 20px; border: 1px solid #e2e8f0; border-radius: 12px; break-inside: avoid;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h4 style="font-size: 18px; font-weight: 700; color: #1e293b; margin: 0;">${service?.name}</h4>
+                <div style="background: #eff6ff; color: #1d4ed8; padding: 4px 12px; rounded-full; font-size: 13px; font-weight: 700; border-radius: 20px;">
+                  ₹${serviceTotal.toLocaleString()}
+                </div>
               </div>
-          `;
-
-      if (detailedServiceList.length > 0 && selectedSubServices[serviceId]?.length > 0) {
-        serviceHtml += `
-              <h5 style="color: #374151; margin-bottom: 10px; font-size: 14px;">Selected Sub-Services:</h5>
-              <table style="width: 100%; border-collapse: collapse; margin-bottom: 15px;">
+              <p style="font-size: 14px; color: #64748b; margin-bottom: 15px;">${service?.description}</p>
+              
+              <table style="width: 100%; border-collapse: collapse;">
                 <thead>
-                  <tr style="background: #f1f5f9;">
-                    <th style="border: 1px solid #e2e8f0; padding: 8px; text-align: left; font-size: 12px;">Sub-Service</th>
-                    <th style="border: 1px solid #e2e8f0; padding: 8px; text-align: left; font-size: 12px;">Description</th>
-                    <th style="border: 1px solid #e2e8f0; padding: 8px; text-align: left; font-size: 12px;">Time</th>
-                    <th style="border: 1px solid #e2e8f0; padding: 8px; text-align: left; font-size: 12px;">Price</th>
+                  <tr style="background: #f8fafc; border-bottom: 1px solid #e2e8f0;">
+                    <th style="text-align: left; padding: 10px; font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 700;">Sub-Service</th>
+                    <th style="text-align: right; padding: 10px; font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 700;">Estimated Time</th>
+                    <th style="text-align: right; padding: 10px; font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 700;">Price</th>
                   </tr>
                 </thead>
                 <tbody>
-                  ${selectedSubServices[serviceId].map(subServiceId => {
-          const subService = detailedServiceList.find((s: { id: string; }) => s.id === subServiceId);
-          if (!subService) return '';
-          return `
-                      <tr>
-                        <td style="border: 1px solid #e2e8f0; padding: 8px; font-size: 12px; font-weight: bold;">${subService.name}</td>
-                        <td style="border: 1px solid #e2e8f0; padding: 8px; font-size: 12px;">${subService.description}</td>
-                        <td style="border: 1px solid #e2e8f0; padding: 8px; font-size: 12px;">${subService.time}</td>
-                        <td style="border: 1px solid #e2e8f0; padding: 8px; font-size: 12px;">₹${(subService.price || 0).toLocaleString()}</td>
+                  ${selectedSubServiceIds.map(subId => {
+        const subService = detailedServiceList.find(s => s.id === subId);
+        return `
+                      <tr style="border-bottom: 1px solid #f1f5f9;">
+                        <td style="padding: 10px; font-size: 13px; color: #1e293b; font-weight: 500;">${subService?.name}</td>
+                        <td style="padding: 10px; font-size: 13px; color: #64748b; text-align: right;">${subService?.time}</td>
+                        <td style="padding: 10px; font-size: 13px; color: #1e293b; text-align: right; font-weight: 600;">₹${(subService?.price || 0).toLocaleString()}</td>
                       </tr>
                     `;
-        }).join('')}
+      }).join('')}
                 </tbody>
               </table>
-            `;
-      }
-
-      serviceHtml += `
-            <div style="background: #f8fafc; padding: 15px; border-radius: 8px;">
-              <h6 style="color: #374151; margin-bottom: 8px; font-size: 12px;">Package Features:</h6>
-              <ul style="margin: 0; padding-left: 20px; font-size: 12px; color: #64748b;">
-                ${service?.features.map(feature => `<li>${feature}</li>`).join('')}
-              </ul>
-            </div>
             </div>
           `;
-
-      return serviceHtml;
     }).join('')}
 
-        <div class="total-section">
-          <h3>Pricing Summary</h3>
-          <p><strong>Subtotal:</strong> ₹${quoteData.subtotal.toLocaleString()}</p>
-          <p><strong>Urgency Fee (${urgencyMultipliers[urgency]}x):</strong> +₹${getSavings().toLocaleString()}</p>
-          <p class="total-amount">Total Amount: ₹${quoteData.total.toLocaleString()}</p>
-        </div>
-
-        <div class="terms">
-          <h3>Terms & Conditions</h3>
-          <ul>
-            <li>All services include 30-day warranty and free consultation</li>
-            <li>Payment terms: 50% advance, 50% upon completion</li>
-            <li>Estimated completion time: ${getEstimatedTime()}</li>
-            <li>Professional certified technicians will handle your project</li>
+        <div style="margin-top: 40px; padding: 25px; background: #f8fafc; border-radius: 12px; border-left: 4px solid #3b82f6;">
+          <h3 style="font-size: 16px; font-weight: 700; color: #1e293b; margin-bottom: 10px;">Terms & Conditions</h3>
+          <ul style="font-size: 13px; color: #475569; padding-left: 20px; line-height: 1.6; margin: 0;">
+            <li>This quote is valid for 30 days from the date of issuance.</li>
+            <li>Completion time is an estimate and may vary based on hardware availability.</li>
+            <li>50% advance payment required to commence specialized procurement.</li>
+            <li>All repair services come with our standard 30-day service warranty.</li>
           </ul>
         </div>
 
-        <div class="contact-info">
-          <h3>Contact Information</h3>
-          <div class="contact-item">📞 Phone: +91 9265627252</div>
-          <div class="contact-item">📧 Email: officialtechnofixer@gmail.com</div>
-          <div class="contact-item">📍 Address: Mumbai, Maharashtra, India</div>
-          <div class="contact-item">🕒 Business Hours: Mon-Fri 9AM-7PM, Sat 10AM-6PM</div>
+        <div style="margin-top: 40px; text-align: center; color: #64748b; font-size: 12px; border-top: 1px solid #e2e8f0; padding-top: 20px;">
+          <p style="margin: 0 0 5px 0;"><strong>Techno Fixer</strong> | Mumbai, MH, India</p>
+          <p style="margin: 0;">WhatsApp: +91 9265627252 | Email: officialtechnofixer@gmail.com</p>
         </div>
-      </body>
-    </html>
-`;
+      </div>
+    `;
 
-    // Create a blob and download the PDF
-    const blob = new Blob([pdfContent], { type: 'text/html' });
-    const url = URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `TechnoFixer_Quote_${quoteData.quoteNumber}.html`;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    URL.revokeObjectURL(url);
+    const opt = {
+      margin: 0,
+      filename: `TechnoFixer_Quote_${quoteData.quoteNumber}.pdf`,
+      image: { type: 'jpeg' as const, quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+
+    // Download as PDF
+    html2pdf().set(opt).from(element).save();
 
     return quoteData;
   };
